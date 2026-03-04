@@ -2,7 +2,7 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>Surprise pour Lise 🎁</title>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
     <style>
@@ -19,18 +19,25 @@
             --text: #3D2409;
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+
+        html { height: -webkit-fill-available; }
 
         body {
             font-family: 'Jost', sans-serif;
             background-color: var(--deep);
             min-height: 100vh;
+            min-height: -webkit-fill-available;
             display: flex;
             justify-content: center;
-            align-items: center;
-            padding: 20px;
+            align-items: flex-start;
+            padding: max(20px, env(safe-area-inset-top)) max(16px, env(safe-area-inset-right)) max(24px, env(safe-area-inset-bottom)) max(16px, env(safe-area-inset-left));
             overflow-x: hidden;
             position: relative;
+        }
+
+        @media (min-height: 700px) {
+            body { align-items: center; }
         }
 
         /* Mosaic background pattern */
@@ -670,6 +677,20 @@
             background: var(--gold);
         }
         .divider span { color: var(--gold); font-size: 0.9em; }
+        /* ── iPhone / Mobile ──────────────────────────────────────────── */
+        @media (max-width: 480px) {
+            .card-inner { padding: 36px 18px 28px; }
+            h1 { font-size: 1.9em; }
+            .destination { font-size: 3em; }
+            .score-number { font-size: 4em; }
+            .question { font-size: 1.18em; }
+            .option { padding: 16px 16px; font-size: 0.96em; min-height: 52px; }
+            .start-btn, .next-btn { padding: 18px 24px; font-size: 1em; min-height: 52px; }
+            .timer-svg { width: 54px; height: 54px; }
+            .personal-message { padding: 20px 18px; }
+            .timeline { padding-left: 24px; }
+            .score-star { font-size: 1.6em; }
+        }
     </style>
 </head>
 <body>
