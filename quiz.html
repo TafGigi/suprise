@@ -1,0 +1,1139 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Surprise pour Lise 🎁</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --gold: #C9963A;
+            --gold-light: #E8B96A;
+            --gold-pale: #F5E6C8;
+            --deep: #1A0E05;
+            --warm: #2C1A0A;
+            --terracotta: #8B3A1E;
+            --water: #1B4A6B;
+            --water-light: #2E6B96;
+            --cream: #FAF4E8;
+            --text: #3D2409;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Jost', sans-serif;
+            background-color: var(--deep);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Mosaic background pattern */
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background-image:
+                radial-gradient(circle at 20% 20%, rgba(201,150,58,0.08) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(27,74,107,0.15) 0%, transparent 50%),
+                radial-gradient(circle at 50% 50%, rgba(139,58,30,0.05) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        /* Decorative grid lines (mosaic feel) */
+        body::after {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background-image:
+                linear-gradient(rgba(201,150,58,0.04) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(201,150,58,0.04) 1px, transparent 1px);
+            background-size: 40px 40px;
+            pointer-events: none;
+        }
+
+        .container {
+            max-width: 520px;
+            width: 100%;
+            position: relative;
+            z-index: 1;
+        }
+
+        .card {
+            background: var(--cream);
+            border-radius: 4px;
+            box-shadow:
+                0 0 0 1px rgba(201,150,58,0.3),
+                0 0 0 3px rgba(201,150,58,0.1),
+                0 30px 80px rgba(0,0,0,0.7),
+                0 0 60px rgba(201,150,58,0.05);
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Gold corner ornaments */
+        .card::before, .card::after {
+            content: '✦';
+            position: absolute;
+            color: var(--gold);
+            font-size: 1.4em;
+            opacity: 0.5;
+            z-index: 10;
+        }
+        .card::before { top: 12px; left: 16px; }
+        .card::after { bottom: 12px; right: 16px; }
+
+        .card-inner {
+            padding: 44px 40px 40px;
+            position: relative;
+        }
+
+        /* Top gold band with ornament */
+        .card-top-band {
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, var(--terracotta), var(--gold), var(--gold-light), var(--gold), var(--terracotta));
+        }
+
+        h1 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2.4em;
+            font-weight: 700;
+            color: var(--deep);
+            text-align: center;
+            line-height: 1.15;
+            letter-spacing: -0.01em;
+        }
+
+        h1 em {
+            font-style: italic;
+            color: var(--terracotta);
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #6B4C2A;
+            font-size: 1em;
+            margin-top: 10px;
+            font-weight: 300;
+            letter-spacing: 0.02em;
+            line-height: 1.6;
+        }
+
+        .ornament {
+            text-align: center;
+            color: var(--gold);
+            font-size: 1.2em;
+            letter-spacing: 0.3em;
+            margin: 20px 0;
+            opacity: 0.7;
+        }
+
+        .start-btn {
+            display: block;
+            width: 100%;
+            background: var(--warm);
+            color: var(--gold-pale);
+            border: 1px solid rgba(201,150,58,0.4);
+            padding: 18px 40px;
+            border-radius: 3px;
+            font-size: 1.05em;
+            font-weight: 500;
+            cursor: pointer;
+            margin-top: 28px;
+            transition: all 0.35s ease;
+            font-family: 'Jost', sans-serif;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .start-btn::before {
+            content: '';
+            position: absolute;
+            top: 0; left: -100%;
+            width: 100%; height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(201,150,58,0.15), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .start-btn:hover {
+            background: var(--deep);
+            border-color: var(--gold);
+            color: var(--gold-light);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.3), 0 0 20px rgba(201,150,58,0.15);
+            transform: translateY(-2px);
+        }
+
+        .start-btn:hover::before { left: 100%; }
+
+        .intro-screen.hide { display: none; }
+
+        /* Progress */
+        .progress-container { margin-bottom: 28px; }
+
+        .progress-bar {
+            height: 3px;
+            background: rgba(201,150,58,0.15);
+            border-radius: 0;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--terracotta), var(--gold));
+            width: 0%;
+            transition: width 0.7s cubic-bezier(0.65, 0, 0.35, 1);
+        }
+
+        .progress-text {
+            margin-top: 8px;
+            color: #8A6A40;
+            font-size: 0.78em;
+            font-weight: 500;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+        }
+
+        /* Questions */
+        .question-container {
+            display: none;
+            animation: revealIn 0.5s ease-out;
+        }
+
+        .question-container.active { display: block; }
+
+        @keyframes revealIn {
+            from { opacity: 0; transform: translateY(14px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .question {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.35em;
+            font-weight: 600;
+            color: var(--deep);
+            margin-bottom: 18px;
+            line-height: 1.45;
+        }
+
+        .hint {
+            background: rgba(201,150,58,0.08);
+            border-left: 3px solid var(--gold);
+            padding: 10px 14px;
+            margin-bottom: 18px;
+            font-size: 0.9em;
+            color: #7A5520;
+            font-style: italic;
+        }
+
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .option {
+            background: white;
+            border: 1px solid rgba(61,36,9,0.12);
+            padding: 14px 18px;
+            border-radius: 3px;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            font-size: 0.98em;
+            text-align: left;
+            color: var(--text);
+            position: relative;
+            font-family: 'Jost', sans-serif;
+        }
+
+        .option::after {
+            content: '→';
+            position: absolute;
+            right: 16px;
+            top: 50%;
+            transform: translateY(-50%) translateX(-4px);
+            opacity: 0;
+            color: var(--gold);
+            transition: all 0.25s ease;
+        }
+
+        .option:hover {
+            border-color: var(--gold);
+            background: rgba(201,150,58,0.04);
+            padding-left: 22px;
+            box-shadow: 0 2px 12px rgba(201,150,58,0.12);
+        }
+
+        .option:hover::after {
+            opacity: 1;
+            transform: translateY(-50%) translateX(0);
+        }
+
+        .option.correct {
+            background: #EFF8F0;
+            border-color: #3A8A4A;
+            color: #1E4D27;
+        }
+
+        .option.wrong {
+            background: #FBF0EE;
+            border-color: var(--terracotta);
+            color: var(--terracotta);
+            animation: shudder 0.45s ease;
+        }
+
+        @keyframes shudder {
+            0%, 100% { transform: translateX(0); }
+            20% { transform: translateX(-8px); }
+            60% { transform: translateX(8px); }
+            80% { transform: translateX(-4px); }
+        }
+
+        .feedback {
+            margin-top: 16px;
+            padding: 12px 16px;
+            border-radius: 3px;
+            font-weight: 500;
+            font-size: 0.92em;
+            display: none;
+            animation: fadeIn 0.35s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .feedback.show { display: block; }
+
+        .feedback.correct {
+            background: #EFF8F0;
+            color: #1E4D27;
+            border: 1px solid rgba(58,138,74,0.25);
+        }
+
+        .feedback.wrong {
+            background: #FBF0EE;
+            color: var(--terracotta);
+            border: 1px solid rgba(139,58,30,0.25);
+        }
+
+        .next-btn {
+            background: var(--warm);
+            color: var(--gold-pale);
+            border: 1px solid rgba(201,150,58,0.35);
+            padding: 14px 32px;
+            border-radius: 3px;
+            font-size: 0.95em;
+            font-weight: 500;
+            cursor: pointer;
+            margin-top: 16px;
+            width: 100%;
+            display: none;
+            transition: all 0.3s ease;
+            font-family: 'Jost', sans-serif;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+        }
+
+        .next-btn.show {
+            display: block;
+            animation: fadeIn 0.4s ease;
+        }
+
+        .next-btn:hover {
+            background: var(--deep);
+            border-color: var(--gold);
+            color: var(--gold-light);
+            transform: translateY(-1px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.25);
+        }
+
+        /* Final reveal */
+        .final-reveal {
+            display: none;
+            text-align: center;
+        }
+
+        .final-reveal.show {
+            display: block;
+            animation: grandReveal 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        @keyframes grandReveal {
+            from { opacity: 0; transform: scale(0.9); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        .final-top {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.1em;
+            font-weight: 300;
+            letter-spacing: 0.2em;
+            color: #8A6A40;
+            text-transform: uppercase;
+            margin-bottom: 6px;
+        }
+
+        .destination {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 4.5em;
+            font-weight: 700;
+            color: var(--deep);
+            letter-spacing: -0.02em;
+            line-height: 1;
+            margin: 8px 0;
+            position: relative;
+            display: inline-block;
+        }
+
+        .destination::after {
+            content: '';
+            display: block;
+            width: 60%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--gold), transparent);
+            margin: 8px auto 0;
+        }
+
+        .destination-sub {
+            font-family: 'Cormorant Garamond', serif;
+            font-style: italic;
+            font-size: 1.3em;
+            color: var(--terracotta);
+            margin: 4px 0 20px;
+        }
+
+        .reveal-image {
+            width: 100%;
+            max-width: 420px;
+            display: block;
+            margin: 20px auto;
+            border-radius: 3px;
+            box-shadow: 0 16px 48px rgba(0,0,0,0.25), 0 0 0 1px rgba(201,150,58,0.2);
+        }
+
+        .dates {
+            display: inline-block;
+            font-size: 1em;
+            color: var(--water);
+            font-weight: 500;
+            letter-spacing: 0.05em;
+            margin: 16px 0;
+            background: rgba(27,74,107,0.07);
+            padding: 8px 20px;
+            border: 1px solid rgba(27,74,107,0.15);
+            border-radius: 2px;
+        }
+
+        .personal-message {
+            background: var(--warm);
+            padding: 24px 28px;
+            border-radius: 3px;
+            margin-top: 24px;
+            border: 1px solid rgba(201,150,58,0.2);
+            text-align: left;
+            position: relative;
+        }
+
+        .personal-message::before {
+            content: '❝';
+            position: absolute;
+            top: -14px; left: 20px;
+            font-size: 2em;
+            color: var(--gold);
+            font-family: 'Cormorant Garamond', serif;
+            line-height: 1;
+        }
+
+        .personal-message p {
+            color: var(--gold-pale);
+            line-height: 1.75;
+            font-size: 1em;
+        }
+
+        .personal-message strong {
+            color: var(--gold-light);
+        }
+
+        /* Emoji rain */
+        .emoji-rain {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            pointer-events: none;
+            z-index: 9999;
+        }
+
+        .emoji {
+            position: absolute;
+            font-size: 26px;
+            animation: fall linear;
+            opacity: 0;
+        }
+
+        @keyframes fall {
+            0% { transform: translateY(-80px) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(100vh) rotate(360deg); opacity: 0; }
+        }
+
+        /* Timer */
+        .timer-ring {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 16px;
+        }
+
+        .timer-svg { transform: rotate(-90deg); }
+
+        .timer-bg { fill: none; stroke: rgba(201,150,58,0.12); stroke-width: 3; }
+
+        .timer-arc {
+            fill: none;
+            stroke: var(--gold);
+            stroke-width: 3;
+            stroke-linecap: round;
+            transition: stroke-dashoffset 1s linear, stroke 0.3s;
+        }
+
+        .timer-text {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.15em;
+            font-weight: 600;
+            fill: var(--text);
+            dominant-baseline: central;
+            text-anchor: middle;
+        }
+
+        .timer-arc.warning { stroke: #C97A20; }
+        .timer-arc.danger { stroke: var(--terracotta); }
+
+        /* Score screen */
+        .score-screen {
+            display: none;
+            text-align: center;
+            animation: grandReveal 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .score-screen.show { display: block; }
+
+        .score-label {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1em;
+            font-weight: 300;
+            letter-spacing: 0.25em;
+            color: #8A6A40;
+            text-transform: uppercase;
+            margin-bottom: 16px;
+        }
+
+        .score-number {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 6em;
+            font-weight: 700;
+            color: var(--deep);
+            line-height: 1;
+            position: relative;
+            display: inline-block;
+        }
+        .score-number .score-denom {
+            font-size: 0.45em;
+            color: #8A6A40;
+            vertical-align: super;
+            font-weight: 300;
+        }
+
+        .score-stars {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin: 18px 0;
+        }
+        .score-star {
+            font-size: 2em;
+            opacity: 0;
+            transform: scale(0);
+            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+        .score-star.lit {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        .score-message {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.4em;
+            font-style: italic;
+            color: var(--terracotta);
+            margin: 8px 0 24px;
+            line-height: 1.4;
+            min-height: 2.5em;
+        }
+
+        /* Timeline */
+        .timeline {
+            position: relative;
+            margin: 24px 0;
+            padding-left: 28px;
+            text-align: left;
+        }
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 10px; top: 8px; bottom: 8px;
+            width: 2px;
+            background: linear-gradient(to bottom, var(--gold), rgba(201,150,58,0.1));
+        }
+        .timeline-item {
+            position: relative;
+            margin-bottom: 20px;
+            opacity: 0;
+            transform: translateX(-10px);
+            transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .timeline-item.reveal {
+            opacity: 1;
+            transform: translateX(0);
+        }
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -22px; top: 6px;
+            width: 10px; height: 10px;
+            border-radius: 50%;
+            background: var(--gold);
+            border: 2px solid var(--cream);
+            box-shadow: 0 0 0 2px var(--gold);
+        }
+        .timeline-date {
+            font-size: 0.75em;
+            font-weight: 600;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: 2px;
+        }
+        .timeline-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.15em;
+            font-weight: 600;
+            color: var(--deep);
+        }
+        .timeline-detail {
+            font-size: 0.88em;
+            color: #7A5520;
+            font-style: italic;
+            margin-top: 2px;
+        }
+        .timeline-icon {
+            position: absolute;
+            right: 0; top: 0;
+            font-size: 1.4em;
+        }
+
+        /* Feedback image reveal */
+        .feedback-image {
+            display: block;
+            width: 100%;
+            max-width: 340px;
+            margin: 12px auto 0;
+            border-radius: 3px;
+            box-shadow: 0 8px 28px rgba(0,0,0,0.2), 0 0 0 1px rgba(201,150,58,0.2);
+            opacity: 0;
+            transform: scale(0.95) translateY(8px);
+            transition: all 0.55s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .feedback-image.visible {
+            opacity: 1;
+            transform: scale(1) translateY(0);
+        }
+
+        /* Divider */
+        .divider {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin: 20px 0;
+            opacity: 0.4;
+        }
+        .divider::before, .divider::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: var(--gold);
+        }
+        .divider span { color: var(--gold); font-size: 0.9em; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="card">
+            <div class="card-top-band"></div>
+            <div class="card-inner">
+
+                <!-- Intro -->
+                <div class="intro-screen" id="introScreen">
+                    <h1>Joyeux anniversaire <em>Lise</em></h1>
+                    <div class="ornament">— ✦ —</div>
+                    <p class="subtitle">J'ai une petite surprise pour toi...<br>Mais avant, il va falloir mériter la réponse !</p>
+                    <button class="start-btn" onclick="startQuiz()">Découvrir ✦</button>
+                </div>
+
+                <!-- Quiz -->
+                <div id="quizContent" style="display: none;">
+                    <h1>Devine ta <em>destination</em></h1>
+                    <p class="subtitle">Attention, c'est pas si facile que ça !</p>
+
+                    <div class="divider"><span>✦</span></div>
+
+                    <div class="progress-container">
+                        <div class="progress-bar">
+                            <div class="progress-fill" id="progressFill"></div>
+                        </div>
+                        <div class="progress-text" id="progressText">Question 1 / 4</div>
+                    </div>
+
+                    <!-- Timer -->
+                    <div class="timer-ring" id="timerRing">
+                        <svg class="timer-svg" width="64" height="64" viewBox="0 0 64 64">
+                            <circle class="timer-bg" cx="32" cy="32" r="28"/>
+                            <circle class="timer-arc" id="timerArc" cx="32" cy="32" r="28"
+                                stroke-dasharray="175.93"
+                                stroke-dashoffset="0"/>
+                            <text class="timer-text" id="timerLabel" x="32" y="32" transform="rotate(90, 32, 32)">20</text>
+                        </svg>
+                    </div>
+
+                    <!-- Q1 -->
+                    <div class="question-container active" id="q1">
+                        <div class="question">On va dans un endroit où on peut changer de culture sans passer par la douane, c'est où ?</div>
+                        <div class="hint">💡 Pas de fouille anale 😒</div>
+                        <div class="options">
+                            <div class="option" onclick="checkAnswer(1,1,false)">🇺🇸 Aux États-Unis</div>
+                            <div class="option" onclick="checkAnswer(1,2,false)">🇬🇧 Au Royaume-Uni</div>
+                            <div class="option" onclick="checkAnswer(1,3,true)">🇪🇺 En Europe</div>
+                            <div class="option" onclick="checkAnswer(1,4,false)">🇨🇭 En Asie</div>
+                        </div>
+                        <div class="feedback" id="feedback1"><img class="feedback-image" id="img1" src="gigi_eu.png" alt="Europe"></div>
+                        <button class="next-btn" id="next1" onclick="nextQuestion(2)">Question suivante →</button>
+                    </div>
+
+                    <!-- Q2 -->
+                    <div class="question-container" id="q2">
+                        <div class="question">Dans cette zone, on va là où l'eau est omniprésente, c'est où ?</div>
+                        <div class="hint">💡 Ce n'est pas Gavrus</div>
+                        <div class="options">
+                            <div class="option" onclick="checkAnswer(2,1,false)">🏔️ Dans les Alpes (pour la neige)</div>
+                            <div class="option" onclick="checkAnswer(2,2,false)">🌧️ En Écosse (pour la pluie)</div>
+                            <div class="option" onclick="checkAnswer(2,3,true)">⛵ Près de la Méditerranée (pour la mer)</div>
+                            <div class="option" onclick="checkAnswer(2,4,false)">💦 À Spa en Belgique (pour les thermes)</div>
+                        </div>
+                        <div class="feedback" id="feedback2"><img class="feedback-image" id="img2" src="gigi_mer.png" alt="Méditerranée"></div>
+                        <button class="next-btn" id="next2" onclick="nextQuestion(3)">On continue →</button>
+                    </div>
+
+                    <!-- Q3 -->
+                    <div class="question-container" id="q3">
+                        <div class="question">Excellent ! Bon, maintenant ça se précise : On va dans un pays qui a une cuisine extraordinaire. C'est où ?</div>
+                        <div class="hint">💡 Ce n'est pas l'Angleterre</div>
+                        <div class="options">
+                            <div class="option" onclick="checkAnswer(3,1,false)">🇪🇸 En Espagne 🥘</div>
+                            <div class="option" onclick="checkAnswer(3,2,true)">🇮🇹 En Italie 🍕</div>
+                            <div class="option" onclick="checkAnswer(3,3,false)">🇬🇷 En Grèce 🍖</div>
+                            <div class="option" onclick="checkAnswer(3,4,false)">🇹🇷 En Turquie 🥙</div>
+                        </div>
+                        <div class="feedback" id="feedback3"><img class="feedback-image" id="img3" src="gigi_italie.png" alt="Italie"></div>
+                        <button class="next-btn" id="next3" onclick="nextQuestion(4)">Dernière question →</button>
+                    </div>
+
+                    <!-- Q4 -->
+                    <div class="question-container" id="q4">
+                        <div class="question">Ultime question : près de quelle ville italienne a été inventée une boisson que tu adores ?</div>
+                        <div class="hint">💡 C'est une boisson qui contient de l'Aperol</div>
+                        <div class="options">
+                            <div class="option" onclick="checkAnswer(4,1,false)">🏛️ Rome</div>
+                            <div class="option" onclick="checkAnswer(4,2,false)">🌋 Naples</div>
+                            <div class="option" onclick="checkAnswer(4,3,true)">🛶 Venise</div>
+                            <div class="option" onclick="checkAnswer(4,4,false)">🎨 Florence</div>
+                        </div>
+                        <div class="feedback" id="feedback4"></div>
+                        <button class="next-btn" id="next4" onclick="showFinal()">Découvrir la surprise ✦</button>
+                    </div>
+
+                    <!-- Score Screen -->
+                    <div class="score-screen" id="scoreScreen">
+                        <div class="score-label">Ton score</div>
+                        <div class="score-number" id="scoreNumber">0<span class="score-denom">/4</span></div>
+                        <div class="score-stars" id="scoreStars">
+                            <div class="score-star" id="star1">⭐</div>
+                            <div class="score-star" id="star2">⭐</div>
+                            <div class="score-star" id="star3">⭐</div>
+                            <div class="score-star" id="star4">⭐</div>
+                        </div>
+                        <div class="score-message" id="scoreMessage"></div>
+                        <button class="next-btn show" onclick="revealFinal()" style="margin-top:8px;">
+                            Et ma surprise alors ? ✦
+                        </button>
+                    </div>
+
+                    <!-- Final -->
+                    <div class="final-reveal" id="finalReveal">
+                        <div class="final-top">Ta surprise, c'est...</div>
+                        <div class="destination">Venise</div>
+                        <div class="destination-sub">La Serenissima</div>
+
+                        <img src="gigos.png" alt="Venise" class="reveal-image">
+
+                        <div class="timeline" id="timeline">
+                            <div class="timeline-item" id="tl1">
+                                <div class="timeline-icon">✈️</div>
+                                <div class="timeline-date">24 avril 2026 · Départ</div>
+                                <div class="timeline-title">Vol Paris → Venise</div>
+                                <div class="timeline-detail">12:55 ➡️ 14:35</div>
+                            </div>
+                            <div class="timeline-item" id="tl2">
+                                <div class="timeline-icon">🏨</div>
+                                <div class="timeline-date">24 — 27 avril · Venise</div>
+                                <div class="timeline-title">Hôtel à San Marco</div>
+                                <div class="timeline-detail">Palais des doges, visite de la ville...</div>
+                            </div>
+                            <div class="timeline-item" id="tl4">
+                                <div class="timeline-icon">✈️</div>
+                                <div class="timeline-date">27 avril · Retour</div>
+                                <div class="timeline-title">Vol Venise → Paris</div>
+                                <div class="timeline-detail">15:15 ➡️ 17:00</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="emoji-rain" id="emojiRain"></div>
+
+    <script>
+        let currentQuestion = 1;
+        let correctAnswers = 0;
+        let timerInterval = null;
+        let timeLeft = 20;
+        const TIMER_DURATION = 20;
+        const CIRCUMFERENCE = 175.93;
+
+        // ─── Audio (Web Audio API) ───────────────────────────────────────────
+        const AudioCtx = window.AudioContext || window.webkitAudioContext;
+        let ctx = null;
+
+        function getCtx() {
+            if (!ctx) ctx = new AudioCtx();
+            return ctx;
+        }
+
+        function playCorrect() {
+            const c = getCtx();
+            const now = c.currentTime;
+            // Two rising notes
+            [[523, 0], [659, 0.15], [784, 0.30]].forEach(([freq, delay]) => {
+                const osc = c.createOscillator();
+                const gain = c.createGain();
+                osc.connect(gain); gain.connect(c.destination);
+                osc.type = 'sine';
+                osc.frequency.value = freq;
+                gain.gain.setValueAtTime(0, now + delay);
+                gain.gain.linearRampToValueAtTime(0.18, now + delay + 0.05);
+                gain.gain.exponentialRampToValueAtTime(0.001, now + delay + 0.35);
+                osc.start(now + delay);
+                osc.stop(now + delay + 0.4);
+            });
+        }
+
+        function playWrong() {
+            const c = getCtx();
+            const now = c.currentTime;
+            [[330, 0], [277, 0.18]].forEach(([freq, delay]) => {
+                const osc = c.createOscillator();
+                const gain = c.createGain();
+                osc.connect(gain); gain.connect(c.destination);
+                osc.type = 'sawtooth';
+                osc.frequency.value = freq;
+                gain.gain.setValueAtTime(0.12, now + delay);
+                gain.gain.exponentialRampToValueAtTime(0.001, now + delay + 0.3);
+                osc.start(now + delay);
+                osc.stop(now + delay + 0.35);
+            });
+        }
+
+        function playFanfare() {
+            const c = getCtx();
+            const now = c.currentTime;
+            // Triumphant ascending fanfare
+            const notes = [523, 659, 784, 1047, 784, 1047, 1319];
+            const times = [0, 0.15, 0.30, 0.45, 0.65, 0.80, 1.0];
+            notes.forEach((freq, i) => {
+                const osc = c.createOscillator();
+                const gain = c.createGain();
+                osc.connect(gain); gain.connect(c.destination);
+                osc.type = 'triangle';
+                osc.frequency.value = freq;
+                gain.gain.setValueAtTime(0, now + times[i]);
+                gain.gain.linearRampToValueAtTime(0.2, now + times[i] + 0.05);
+                gain.gain.exponentialRampToValueAtTime(0.001, now + times[i] + 0.5);
+                osc.start(now + times[i]);
+                osc.stop(now + times[i] + 0.55);
+            });
+        }
+
+        function playTimerTick() {
+            if (timeLeft > 5) return;
+            const c = getCtx();
+            const now = c.currentTime;
+            const osc = c.createOscillator();
+            const gain = c.createGain();
+            osc.connect(gain); gain.connect(c.destination);
+            osc.frequency.value = 880;
+            gain.gain.setValueAtTime(0.06, now);
+            gain.gain.exponentialRampToValueAtTime(0.001, now + 0.08);
+            osc.start(now); osc.stop(now + 0.1);
+        }
+
+        // ─── Timer ───────────────────────────────────────────────────────────
+        function startTimer() {
+            clearInterval(timerInterval);
+            timeLeft = TIMER_DURATION;
+            updateTimerUI();
+
+            timerInterval = setInterval(() => {
+                timeLeft--;
+                updateTimerUI();
+                playTimerTick();
+
+                if (timeLeft <= 0) {
+                    clearInterval(timerInterval);
+                    timeExpired();
+                }
+            }, 1000);
+        }
+
+        function stopTimer() {
+            clearInterval(timerInterval);
+        }
+
+        function updateTimerUI() {
+            const arc = document.getElementById('timerArc');
+            const label = document.getElementById('timerLabel');
+            const ratio = timeLeft / TIMER_DURATION;
+            arc.style.strokeDashoffset = CIRCUMFERENCE * (1 - ratio);
+            label.textContent = timeLeft;
+
+            arc.className = 'timer-arc';
+            if (timeLeft <= 5) arc.classList.add('danger');
+            else if (timeLeft <= 10) arc.classList.add('warning');
+        }
+
+        function timeExpired() {
+            // Force reveal correct answer + show hint like a wrong answer
+            const options = document.querySelectorAll(`#q${currentQuestion} .option`);
+            const feedback = document.getElementById(`feedback${currentQuestion}`);
+            const nextBtn = document.getElementById(`next${currentQuestion}`);
+
+            options.forEach(opt => opt.style.pointerEvents = 'none');
+            playWrong();
+
+            feedback.innerHTML = '⏱️ Temps écoulé ! La bonne réponse est révélée...';
+            feedback.classList.add('wrong', 'show');
+
+            // Highlight correct answer
+            options.forEach(opt => {
+                if (opt.getAttribute('onclick').includes('true')) {
+                    opt.classList.add('correct');
+                } else {
+                    opt.style.opacity = '0.45';
+                }
+            });
+
+            setTimeout(() => {
+                feedback.innerHTML = "Allez, on continue quand même !";
+                feedback.classList.remove('wrong');
+                feedback.classList.add('correct');
+                nextBtn.classList.add('show');
+            }, 1800);
+        }
+
+        // ─── Quiz logic ──────────────────────────────────────────────────────
+        function startQuiz() {
+            document.getElementById('introScreen').classList.add('hide');
+            document.getElementById('quizContent').style.display = 'block';
+            updateProgress();
+            startTimer();
+        }
+
+        function updateProgress() {
+            const progress = ((currentQuestion - 1) / 4) * 100;
+            document.getElementById('progressFill').style.width = progress + '%';
+            document.getElementById('progressText').textContent = `Question ${currentQuestion} / 4`;
+        }
+
+        function checkAnswer(questionNum, optionNum, isCorrect) {
+            const options = document.querySelectorAll(`#q${questionNum} .option`);
+            const feedback = document.getElementById(`feedback${questionNum}`);
+            const nextBtn = document.getElementById(`next${questionNum}`);
+
+            options.forEach(opt => opt.style.pointerEvents = 'none');
+            const selectedOption = options[optionNum - 1];
+
+            if (isCorrect) {
+                stopTimer();
+                playCorrect();
+                selectedOption.classList.add('correct');
+                feedback.classList.add('correct', 'show');
+                // Set text message
+                const img = feedback.querySelector('.feedback-image');
+                const msgNode = document.createElement('span');
+                msgNode.textContent = getCorrectMessage(questionNum);
+                feedback.prepend(msgNode);
+                // Animate image if present
+                if (img) {
+                    setTimeout(() => img.classList.add('visible'), 200);
+                }
+                correctAnswers++;
+                nextBtn.classList.add('show');
+            } else {
+                playWrong();
+                selectedOption.classList.add('wrong');
+                feedback.textContent = getWrongMessage(questionNum);
+                feedback.classList.add('wrong', 'show');
+
+                setTimeout(() => {
+                    options.forEach(opt => { if (opt !== selectedOption) opt.style.opacity = '0.5'; });
+                    feedback.textContent = getHintMessage(questionNum);
+                    feedback.classList.remove('wrong');
+                    feedback.classList.add('correct');
+
+                    setTimeout(() => {
+                        options.forEach(opt => {
+                            opt.style.pointerEvents = 'auto';
+                            opt.style.opacity = '1';
+                            opt.classList.remove('wrong');
+                        });
+                        // Reset feedback for retry
+                        feedback.innerHTML = '';
+                        if (feedback.querySelector) {
+                            // Re-add image for questions that have one
+                            const imgSrcs = { 1: 'gigi_eu.png', 2: 'gigi_mer.png', 3: 'gigi_italie.png' };
+                            if (imgSrcs[currentQuestion]) {
+                                const img = document.createElement('img');
+                                img.className = 'feedback-image';
+                                img.id = `img${currentQuestion}`;
+                                img.src = imgSrcs[currentQuestion];
+                                feedback.appendChild(img);
+                            }
+                        }
+                        feedback.classList.remove('show', 'correct', 'wrong');
+                    }, 2000);
+                }, 1500);
+            }
+        }
+
+        function getCorrectMessage(q) {
+            return ["✦ Bien joué ! Direction l'Europe !", "✦ Exactement ! On va vers le beau temps !", "✦ Bingo ! La dolce vita !", "✦ Tu as trouvé ! On part à Venise !"][q - 1];
+        }
+
+        function getWrongMessage(q) {
+            return ["Raté ! Réfléchis encore...", "Pas tout à fait...", "Presque ! Mais non !", "Oups ! Encore un effort !"][q - 1];
+        }
+
+        function getHintMessage(q) {
+            return ["💡 Allez, je t'aide : c'est pas loin de chez nous !", "💡 Le climat est plutôt sympa...", "💡 T'es sérieuse ?", "💡 Les canaux, les gondoles... ça te dit un truc ?"][q - 1];
+        }
+
+        function nextQuestion(nextQ) {
+            document.getElementById(`q${currentQuestion}`).classList.remove('active');
+            document.getElementById(`q${nextQ}`).classList.add('active');
+            currentQuestion = nextQ;
+            updateProgress();
+            startTimer();
+        }
+
+        function showFinal() {
+            stopTimer();
+            document.getElementById('timerRing').style.display = 'none';
+            document.getElementById('q4').classList.remove('active');
+            document.getElementById('progressFill').style.width = '100%';
+            document.getElementById('progressText').textContent = '✦ Terminé !';
+            showScoreScreen();
+        }
+
+        function showScoreScreen() {
+            const screen = document.getElementById('scoreScreen');
+            screen.classList.add('show');
+
+            // Affiche le score
+            document.getElementById('scoreNumber').innerHTML = `${correctAnswers}<span class="score-denom">/4</span>`;
+
+            // Messages selon le score
+            const messages = {
+                0: "Alors là... t'as pas deviné grand chose 😅\nMais t'inquiète, la surprise est quand même là !",
+                1: "Hmm... 1/4. T'avais 25% de chances au hasard 😬",
+                2: "Pas mal ! T'as presque failli rater Venise 😄",
+                3: "Bien joué ! T'as pas tout trouvé du premier coup, mais presque 😏",
+                4: "4/4 ! Parfait ! T'aurais peut-être dû faire ça en mode pro 🏆"
+            };
+            document.getElementById('scoreMessage').textContent = messages[correctAnswers];
+
+            // Étoiles qui s'allument une par une
+            for (let i = 1; i <= 4; i++) {
+                setTimeout(() => {
+                    const star = document.getElementById(`star${i}`);
+                    if (i <= correctAnswers) {
+                        star.textContent = '⭐';
+                        star.classList.add('lit');
+                        playCorrect();
+                    } else {
+                        star.textContent = '☆';
+                        star.style.opacity = '0.25';
+                        star.style.transform = 'scale(0.8)';
+                        star.classList.add('lit');
+                    }
+                }, i * 350);
+            }
+        }
+
+        function revealFinal() {
+            document.getElementById('scoreScreen').classList.remove('show');
+            document.getElementById('finalReveal').classList.add('show');
+            setTimeout(playFanfare, 300);
+            createEmojiRain();
+            // Timeline items apparaissent un par un
+            ['tl1','tl2','tl3','tl4'].forEach((id, i) => {
+                setTimeout(() => {
+                    document.getElementById(id).classList.add('reveal');
+                }, 600 + i * 500);
+            });
+        }
+
+        function createEmojiRain() {
+            const emojiRain = document.getElementById('emojiRain');
+            const emojis = ['🎉', '🎊', '❤️', '🛶', '🎭', '🍕', '🥂', '✨', '🌟', '🌊', '🇮🇹'];
+            for (let i = 0; i < 50; i++) {
+                setTimeout(() => {
+                    const emoji = document.createElement('div');
+                    emoji.className = 'emoji';
+                    emoji.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+                    emoji.style.left = Math.random() * 100 + '%';
+                    emoji.style.animationDuration = (Math.random() * 3 + 2) + 's';
+                    emojiRain.appendChild(emoji);
+                    setTimeout(() => emoji.remove(), 5000);
+                }, i * 100);
+            }
+        }
+    </script>
+</body>
+</html>
