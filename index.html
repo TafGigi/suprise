@@ -876,104 +876,108 @@
             const now = c.currentTime;
 
             // "Que c'est triste Venise" - Charles Aznavour
-            // Mélodie principale + reprise, en La mineur, tempo ~76 bpm
-            // Durée d'une noire = ~0.79s
-            const Q = 0.79;   // noire
-            const H = Q * 2;  // blanche
-            const E = Q / 2;  // croche
-            const D = Q * 1.5; // pointée
+            // Tonalité: Sib majeur. Tempo: ~72 bpm → noire = 0.83s
+            const Q  = 0.83;       // noire
+            const H  = Q * 2;      // blanche
+            const E  = Q / 2;      // croche
+            const QD = Q * 1.5;    // noire pointée
+            const W  = Q * 4;      // ronde
 
-            // Fréquences (La mineur)
-            const freqs = {
-                A3:  220.0, B3:  246.9, C4:  261.6, D4:  293.7,
-                E4:  329.6, F4:  349.2, G4:  392.0,
-                A4:  440.0, B4:  493.9, C5:  523.3, D5:  587.3,
-                E5:  659.3, F5:  698.5, G5:  784.0,
-                A5:  880.0, Bb4: 466.2, Bb3: 233.1, Gs4: 415.3,
-                Cs5: 554.4, Gs3: 207.7
-            };
+            // Notes en Hz — Sib majeur: Bb C D Eb F G A
+            const Bb3 = 233.1, C4 = 261.6, D4 = 293.7, Eb4 = 311.1,
+                  F4  = 349.2, G4 = 392.0, A4  = 440.0,
+                  Bb4 = 466.2, C5 = 523.3, D5  = 587.3, Eb5 = 622.3,
+                  F5  = 698.5, G5 = 784.0, A5  = 880.0,
+                  Ab4 = 415.3, Ab3 = 207.7;
 
-            // [fréquence, durée en secondes]
-            // "Que c'est triste Venise..." - mélodie principale
+            // Mélodie vocale réelle, syllabe par syllabe :
+            // "Que  c'est  tris- te  Ve- ni-  se,  au   temps  des  a- mours  mor-  tes"
+            // "Que  c'est  tris- te  Ve- ni-  se,  quand on    ne   s'ai- me  plus"
             const melody = [
-                // Intro / phrase 1 : "Que c'est triste Venise..."
-                [freqs.A4,  Q],
-                [freqs.G4,  E], [freqs.F4,  E],
-                [freqs.E4,  H],
-                [freqs.F4,  Q],
-                [freqs.G4,  Q],
-                [freqs.A4,  D],
-                [freqs.Bb4, E],
-                [freqs.A4,  H],
+                // — Verse 1 —
+                // "Que c'est tris-te Ve-ni-se"
+                [F4,  Q],   // Que
+                [F4,  Q],   // c'est
+                [G4,  Q],   // tris-
+                [F4,  Q],   // te
+                [Eb4, Q],   // Ve-
+                [D4,  Q],   // ni-
+                [C4,  H],   // se
 
-                // "au temps où je t'aimais..."
-                [freqs.G4,  Q],
-                [freqs.A4,  Q],
-                [freqs.E4,  H],
-                [freqs.F4,  Q],
-                [freqs.E4,  Q],
-                [freqs.D4,  H + Q],
+                // "au temps des a-mours mor-tes"
+                [C4,  Q],   // au
+                [D4,  Q],   // temps
+                [Eb4, Q],   // des
+                [F4,  Q],   // a-
+                [G4,  Q],   // mours
+                [F4,  H],   // mor-
+                [Eb4, Q],   // tes (résolution)
 
-                // "Que c'est triste Venise..." (reprise phrase 1)
-                [freqs.A4,  Q],
-                [freqs.G4,  E], [freqs.F4,  E],
-                [freqs.E4,  H],
-                [freqs.F4,  Q],
-                [freqs.G4,  Q],
-                [freqs.A4,  D],
-                [freqs.Bb4, E],
-                [freqs.A4,  H],
+                // "Que c'est tris-te Ve-ni-se"
+                [F4,  Q],
+                [F4,  Q],
+                [G4,  Q],
+                [F4,  Q],
+                [Eb4, Q],
+                [D4,  Q],
+                [C4,  H],
 
-                // "quand on s'aimait si bien..."
-                [freqs.G4,  Q],
-                [freqs.A4,  Q],
-                [freqs.E4,  H],
-                [freqs.D4,  Q],
-                [freqs.E4,  Q],
-                [freqs.A3,  H + Q],
+                // "quand on ne s'ai-me plus"
+                [Bb3, Q],   // quand
+                [C4,  Q],   // on
+                [D4,  Q],   // ne
+                [Eb4, Q],   // s'ai-
+                [F4,  Q],   // me
+                [Bb3, H+Q], // plus (tenu)
 
-                // Montée : "Et les soupirs des gondoliers..."
-                [freqs.C5,  Q],
-                [freqs.C5,  E], [freqs.B4,  E],
-                [freqs.A4,  H],
-                [freqs.B4,  Q],
-                [freqs.C5,  Q],
-                [freqs.D5,  H],
+                // — Chorus : "Que c'est tris-te Ve-ni-se, lors-que les bar-ca-ro-les" —
+                [F4,  Q],
+                [F4,  Q],
+                [G4,  Q],
+                [F4,  Q],
+                [Ab4, Q],   // "lors-" (note caractéristique Ab)
+                [G4,  Q],
+                [F4,  H],
 
-                // "et les chansons légères..."
-                [freqs.E5,  Q],
-                [freqs.D5,  E], [freqs.C5,  E],
-                [freqs.B4,  H],
-                [freqs.A4,  Q],
-                [freqs.G4,  Q],
-                [freqs.A4,  H + Q],
+                // "ne viennent sou-li-gner que les si-len-ces creux"
+                [Eb4, Q],
+                [F4,  Q],
+                [G4,  Q],
+                [F4,  Q],
+                [Eb4, Q],
+                [D4,  Q],
+                [C4,  H],
 
-                // Descente douce : "me font pleurer..."
-                [freqs.A4,  Q],
-                [freqs.G4,  Q],
-                [freqs.F4,  H],
-                [freqs.E4,  Q],
-                [freqs.D4,  Q],
-                [freqs.C4,  H],
+                // "Et que le coeur se ser-re en vo-yant les gon-do-les"
+                [C4,  Q],
+                [D4,  Q],
+                [Eb4, Q],
+                [F4,  Q],
+                [G4,  Q],
+                [Ab4, Q],
+                [Bb4, H],
 
-                // Final : résolution
-                [freqs.E4,  Q],
-                [freqs.F4,  Q],
-                [freqs.A4,  Q],
-                [freqs.E4,  H + Q],
-                [freqs.A3,  H],
+                // "a-bri-ter le bon-heur des cou-ples a-mou-reux"
+                [Bb4, Q],
+                [A4,  Q],
+                [Bb4, Q],
+                [G4,  Q],
+                [F4,  Q],
+                [Eb4, Q],
+                [D4,  Q],
+                [C4,  Q],
+                [Bb3, H+Q],  // résolution finale
             ];
 
-            // Jouer chaque note avec une enveloppe douce (vibrato léger simulé)
-            let t = now + 0.1;
+            let t = now + 0.05;
             melody.forEach(([freq, dur]) => {
-                const osc = c.createOscillator();
+                const osc  = c.createOscillator();
                 const gain = c.createGain();
-                // Léger vibrato via un LFO
-                const lfo = c.createOscillator();
+                // Léger vibrato
+                const lfo     = c.createOscillator();
                 const lfoGain = c.createGain();
-                lfo.frequency.value = 5.5;
-                lfoGain.gain.value = 4;
+                lfo.frequency.value = 5;
+                lfoGain.gain.value  = 3;
                 lfo.connect(lfoGain);
                 lfoGain.connect(osc.frequency);
 
@@ -982,18 +986,15 @@
                 osc.type = 'sine';
                 osc.frequency.value = freq;
 
-                const attack = 0.04;
-                const release = Math.min(0.25, dur * 0.35);
+                const atk = 0.05;
+                const rel = Math.min(0.2, dur * 0.3);
                 gain.gain.setValueAtTime(0, t);
-                gain.gain.linearRampToValueAtTime(0.22, t + attack);
-                gain.gain.setValueAtTime(0.22, t + dur - release);
-                gain.gain.exponentialRampToValueAtTime(0.001, t + dur);
+                gain.gain.linearRampToValueAtTime(0.22, t + atk);
+                gain.gain.setValueAtTime(0.22, t + dur - rel);
+                gain.gain.exponentialRampToValueAtTime(0.001, t + dur + 0.01);
 
-                lfo.start(t);
-                lfo.stop(t + dur);
-                osc.start(t);
-                osc.stop(t + dur);
-
+                lfo.start(t); lfo.stop(t + dur + 0.05);
+                osc.start(t); osc.stop(t + dur + 0.05);
                 t += dur;
             });
         }
