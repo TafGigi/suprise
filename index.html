@@ -2,7 +2,7 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Surprise pour Lise 🎁</title>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
     <style>
@@ -19,25 +19,18 @@
             --text: #3D2409;
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
-
-        html { height: -webkit-fill-available; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
             font-family: 'Jost', sans-serif;
             background-color: var(--deep);
             min-height: 100vh;
-            min-height: -webkit-fill-available;
             display: flex;
             justify-content: center;
-            align-items: flex-start;
-            padding: max(20px, env(safe-area-inset-top)) max(16px, env(safe-area-inset-right)) max(24px, env(safe-area-inset-bottom)) max(16px, env(safe-area-inset-left));
+            align-items: center;
+            padding: 20px;
             overflow-x: hidden;
             position: relative;
-        }
-
-        @media (min-height: 700px) {
-            body { align-items: center; }
         }
 
         /* Mosaic background pattern */
@@ -677,20 +670,6 @@
             background: var(--gold);
         }
         .divider span { color: var(--gold); font-size: 0.9em; }
-        /* ── iPhone / Mobile ──────────────────────────────────────────── */
-        @media (max-width: 480px) {
-            .card-inner { padding: 36px 18px 28px; }
-            h1 { font-size: 1.9em; }
-            .destination { font-size: 3em; }
-            .score-number { font-size: 4em; }
-            .question { font-size: 1.18em; }
-            .option { padding: 16px 16px; font-size: 0.96em; min-height: 52px; }
-            .start-btn, .next-btn { padding: 18px 24px; font-size: 1em; min-height: 52px; }
-            .timer-svg { width: 54px; height: 54px; }
-            .personal-message { padding: 20px 18px; }
-            .timeline { padding-left: 24px; }
-            .score-star { font-size: 1.6em; }
-        }
     </style>
 </head>
 <body>
@@ -703,14 +682,14 @@
                 <div class="intro-screen" id="introScreen">
                     <h1>Joyeux anniversaire <em>Lise</em></h1>
                     <div class="ornament">— ✦ —</div>
-                    <p class="subtitle">J'ai une petite surprise pour toi...<br>Mais avant, il va falloir mériter la réponse !</p>
+                    <p class="subtitle">Tu sais que nous partons en week-end...<br>Mais il faut trouver où !</p>
                     <button class="start-btn" onclick="startQuiz()">Découvrir ✦</button>
                 </div>
 
                 <!-- Quiz -->
                 <div id="quizContent" style="display: none;">
                     <h1>Devine ta <em>destination</em></h1>
-                    <p class="subtitle">Attention, c'est pas si facile que ça !</p>
+                    <p class="subtitle">C'est facile</p>
 
                     <div class="divider"><span>✦</span></div>
 
@@ -748,7 +727,7 @@
 
                     <!-- Q2 -->
                     <div class="question-container" id="q2">
-                        <div class="question">Dans cette zone, on va là où l'eau est omniprésente, c'est où ?</div>
+                        <div class="question">Nous allons dans un lieu où l'eau est omniprésente, c'est où ?</div>
                         <div class="hint">💡 Ce n'est pas Gavrus</div>
                         <div class="options">
                             <div class="option" onclick="checkAnswer(2,1,false)">🏔️ Dans les Alpes (pour la neige)</div>
@@ -762,7 +741,7 @@
 
                     <!-- Q3 -->
                     <div class="question-container" id="q3">
-                        <div class="question">Excellent ! Bon, maintenant ça se précise : On va dans un pays qui a une cuisine extraordinaire. C'est où ?</div>
+                        <div class="question">Bon, maintenant ça se précise : On va dans un pays qui a une cuisine extraordinaire. C'est où ?</div>
                         <div class="hint">💡 Ce n'est pas l'Angleterre</div>
                         <div class="options">
                             <div class="option" onclick="checkAnswer(3,1,false)">🇪🇸 En Espagne 🥘</div>
@@ -776,7 +755,7 @@
 
                     <!-- Q4 -->
                     <div class="question-container" id="q4">
-                        <div class="question">Ultime question : près de quelle ville italienne a été inventée une boisson que tu adores ?</div>
+                        <div class="question">Ultime question : dans quelle ville italienne a été inventée une boisson que tu adores ?</div>
                         <div class="hint">💡 C'est une boisson qui contient de l'Aperol</div>
                         <div class="options">
                             <div class="option" onclick="checkAnswer(4,1,false)">🏛️ Rome</div>
@@ -1064,7 +1043,7 @@
         }
 
         function getCorrectMessage(q) {
-            return ["✦ Bien joué ! Direction l'Europe !", "✦ Exactement ! On va vers le beau temps !", "✦ Bingo ! La dolce vita !", "✦ Tu as trouvé ! On part à Venise !"][q - 1];
+            return ["✦ Bien joué ! Direction l'Europe !", "✦ Exactement ! On va au bord de la mer !", "✦ Exact !", "✦ Tu as trouvé !"][q - 1];
         }
 
         function getWrongMessage(q) {
@@ -1104,8 +1083,8 @@
                 0: "Alors là... t'as pas deviné grand chose 😅\nMais t'inquiète, la surprise est quand même là !",
                 1: "Hmm... 1/4. T'avais 25% de chances au hasard 😬",
                 2: "Pas mal ! T'as presque failli rater Venise 😄",
-                3: "Bien joué ! T'as pas tout trouvé du premier coup, mais presque 😏",
-                4: "4/4 ! Parfait ! T'aurais peut-être dû faire ça en mode pro 🏆"
+                3: "Bien joué ! T'as pas tout trouvé mais presque 😏",
+                4: "4/4 ! Parfait ! 🏆"
             };
             document.getElementById('scoreMessage').textContent = messages[correctAnswers];
 
